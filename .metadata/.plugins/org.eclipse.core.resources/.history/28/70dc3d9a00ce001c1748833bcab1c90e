@@ -1,0 +1,48 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+public class CheckEnableDisableFunctionality 
+{
+	ChromeDriver D;
+	WebElement TxtBox;
+	@BeforeClass
+	public void StartTest()
+	{
+		System.setProperty("webdriver.chrome.driver", "D:\\VibrantMindsBatch3536\\Drivers\\chromedriver.exe");
+		D=new ChromeDriver();
+		D.get("https://courses.letskodeit.com/practice");
+	}
+	
+	@Test(priority=1)
+	public void TestDisableButton()
+	{
+		WebElement DisableButton=D.findElement(By.id("disabled-button"));
+		DisableButton.click();
+		TxtBox=D.findElement(By.id("enabled-example-input"));
+		/*
+		 * isEnabled returns boolean true if element is enable else it returns
+		 * boolean false
+		 */
+		boolean Enabled=TxtBox.isEnabled();
+		Assert.assertEquals(Enabled, false,"Disable button is not working fine");
+	}
+
+	@Test(priority=2)
+	public void TestEnableButton()
+	{
+		WebElement EnableButton=D.findElement(By.id("enabled-button"));
+		EnableButton.click();
+		boolean Enabled=TxtBox.isEnabled();
+		Assert.assertEquals(Enabled, true,"Enable button is not working fine");
+	}
+	@AfterClass
+	public void Stop()
+	{
+		D.close();
+	}
+}

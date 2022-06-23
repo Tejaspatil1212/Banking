@@ -1,0 +1,9 @@
+
+public class FindChild 
+{
+	@BeforeClass
+	public void StartBrowser()
+	{
+		
+	}
+}

@@ -1,0 +1,31 @@
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+public class WorkingOnMultipleControls 
+{
+	ChromeDriver D;
+	@BeforeClass
+	public void StartTest()
+	{
+		System.setProperty("webdriver.chrome.driver", "D:\\\\\\\\VibrantMindsBatch3536\\\\\\\\Drivers\\\\\\\\chromedriver.exe");
+		D=new ChromeDriver();
+		D.get("https://courses.letskodeit.com/practice");
+
+	}
+	@Test
+	public void TestCheckboxes()
+	{
+		/*
+		 * When we want to test same thing but on  multiple controls then instead of finding the
+		 * individual control we find all the required controls using findElements.
+		 * 
+		 */
+		List<WebElement>Checkboxes=D.findElements(By.cssSelector("input[type='checkbox']"));
+		System.out.println(Checkboxes.size());
+	}
+}

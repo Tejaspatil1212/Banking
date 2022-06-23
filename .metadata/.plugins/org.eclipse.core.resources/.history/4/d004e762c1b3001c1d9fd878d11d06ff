@@ -1,0 +1,19 @@
+import org.testng.annotations.BeforeClass;
+
+public class CheckingExistenceOfAnElement 
+{
+
+	@BeforeClass
+	public void StartTest()
+	{
+		
+	}
+	
+	public void CheckIfElementIsPresent()
+	{
+		
+	}
+	
+	
+	
+}

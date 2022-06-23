@@ -1,0 +1,26 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.BeforeClass;
+
+public class ScrollingAndHovering {
+	
+	ChromeDriver D;
+	@BeforeClass
+	public void StartBrowser()
+	{
+		System.setProperty("webdriver.chrome.driver", "D:\\\\\\\\VibrantMindsBatch3536\\\\\\\\Drivers\\\\\\\\chromedriver.exe");
+		D=new ChromeDriver();
+		D.get("https://courses.letskodeit.com/practice");
+	}
+
+	
+	public void Scrolling()
+	{
+		WebElement HoverButton=D.findElement(By.id("mousehover"));
+		D.executeScript("arguments[0].scrollIntoView()", HoverButton);
+	}
+	
+	
+
+}

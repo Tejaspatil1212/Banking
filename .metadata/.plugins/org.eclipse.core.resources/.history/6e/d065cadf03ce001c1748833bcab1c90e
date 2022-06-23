@@ -1,0 +1,46 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+public class TestingListBoxControl 
+{
+	ChromeDriver D;
+	Select Se;
+	@BeforeClass
+	public void StartTest()
+	{
+		System.setProperty("webdriver.chrome.driver", "D:\\\\\\\\VibrantMindsBatch3536\\\\\\\\Drivers\\\\\\\\chromedriver.exe");
+		D=new ChromeDriver();
+		D.get("https://courses.letskodeit.com/practice");
+
+	}
+	@Test
+	public void CheckSelectedOptionInListBox() throws InterruptedException
+	{
+		WebElement ListBox=D.findElement(By.id("multiple-select-example"));
+		Se=new Select(ListBox);
+		Se.selectByValue("apple");
+		/*
+		 * SelectedOption=<option value="apple">Apple</option>
+		 */
+		WebElement SelectedOption=Se.getFirstSelectedOption();
+		String SelectedOptionTxt=SelectedOption.getText();
+		Assert.assertEquals(SelectedOptionTxt, "Apple");
+		Thread.sleep(3000);
+		Se.deselectByIndex(0);
+		Thread.sleep(3000);
+		Se.selectByIndex(1);
+		Thread.sleep(3000);
+		/*
+		 * SelectedOption=<option value="orange">Orange</option>
+		 */
+		SelectedOption=Se.getFirstSelectedOption();
+		SelectedOptionTxt=SelectedOption.getText();
+		Assert.assertEquals(SelectedOptionTxt, "Orange");
+	}
+
+}

@@ -1,0 +1,42 @@
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+public class WorkingOnMultipleControls 
+{
+	ChromeDriver D;
+	@BeforeClass
+	public void StartTest()
+	{
+		System.setProperty("webdriver.chrome.driver", "D:\\\\\\\\VibrantMindsBatch3536\\\\\\\\Drivers\\\\\\\\chromedriver.exe");
+		D=new ChromeDriver();
+		D.get("https://courses.letskodeit.com/practice");
+
+	}
+	@Test
+	public void TestCheckboxes()
+	{
+		/*
+		 * When we want to test same thing but on  multiple controls then instead of finding the
+		 * individual control we find all the required controls using findElements.
+		 * Checkboxes=<input id="bmwcheck" value="bmw" name="cars" type="checkbox">
+		 * 			<input id="benzcheck" value="benz" name="cars" type="checkbox">
+		 * 			<input id="hondacheck" value="honda" name="cars" type="checkbox">	
+		 */
+		List<WebElement>Checkboxes=D.findElements(By.cssSelector("input[type='checkbox'][name='cars']"));
+		System.out.println(Checkboxes.size());
+		for(WebElement Chk:Checkboxes)
+		{
+			
+			Chk.click();
+			Thread.sleep(3000);
+			boolean IsChecked=Chk.isSelected();
+			Assert.assertEquals(IsChecked, true,"Checkbox is not selected after clicking on it");
+		}	
+	}
+}

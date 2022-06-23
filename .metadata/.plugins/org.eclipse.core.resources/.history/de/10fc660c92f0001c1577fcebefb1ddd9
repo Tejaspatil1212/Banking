@@ -1,0 +1,12 @@
+<suite name="All Test Suite">
+<test name="groupingtest">
+	<groups>
+	<run>
+		<include name="sanity"/>
+	</run>>
+	</groups>
+<classes>
+	<class name="GroupingExample"/>
+</classes>>
+</test>
+</suite>

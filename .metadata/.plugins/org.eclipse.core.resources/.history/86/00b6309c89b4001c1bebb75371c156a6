@@ -1,0 +1,14 @@
+
+public class WorkingOnMultipleControls 
+{
+	ChromeDriver D;
+	public void StartTest()
+	{
+		
+	}
+	
+	public void TestCheckboxes()
+	{
+		
+	}
+}

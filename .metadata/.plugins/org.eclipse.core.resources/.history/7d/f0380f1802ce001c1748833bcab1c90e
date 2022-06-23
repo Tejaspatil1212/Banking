@@ -1,0 +1,53 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.Test;
+
+public class RadioControlFunctionality 
+{
+	ChromeDriver D;
+	WebElement BenzRadio;
+	@BeforeClass
+	public void Start()
+	{
+		System.setProperty("webdriver.chrome.driver", "D:\\VibrantMindsBatch3536\\Drivers\\chromedriver.exe");
+		D=new ChromeDriver();
+		D.get("https://courses.letskodeit.com/practice");
+	}
+	
+	@Test(priority=1)
+	public void CheckRadioButtonGetsSelected()
+	{
+		/*
+		 * <input id="benzradio" value="benz" name="cars" type="radio">
+		 */
+		BenzRadio=D.findElement(By.id("benzradio"));
+		BenzRadio.click();
+		boolean IsChecked=BenzRadio.isSelected();
+		Assert.assertEquals(IsChecked, true,"Radio button is not getting selected after clicking on it");
+	}
+
+	@Test(priority=2)
+	public void CheckOnlyOneRadioButtonRemainsSelected()
+	{
+		/*
+		 * <input id="hondaradio" value="honda" name="cars" type="radio">
+		 */
+		WebElement HondaRadio=D.findElement(By.id("hondaradio"));
+		HondaRadio.click();
+		boolean IsHondaChecked=HondaRadio.isSelected();
+		Assert.assertEquals(IsHondaChecked, true,"Honda radio does not get selected");
+		boolean IsBenzChecked=BenzRadio.isSelected();
+		Assert.assertEquals(IsBenzChecked, false,"More than 1 radio controls are getting selected");
+	}
+
+	@AfterSuite
+	public void DoAfterSuite()
+	{
+		System.out.println("This is going to be executed at the end of the suite");
+	}
+}

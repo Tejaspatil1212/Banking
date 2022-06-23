@@ -1,0 +1,15 @@
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class WorkingOnMultipleControls 
+{
+	ChromeDriver D;
+	public void StartTest()
+	{
+		
+	}
+	
+	public void TestCheckboxes()
+	{
+		
+	}
+}

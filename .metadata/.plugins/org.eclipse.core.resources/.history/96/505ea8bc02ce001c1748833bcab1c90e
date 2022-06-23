@@ -1,0 +1,88 @@
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+public class TestDataSubmission_IframeHandling 
+{
+	ChromeDriver D;
+	@BeforeClass
+	public void StartTest()
+	{
+		System.setProperty("webdriver.chrome.driver", "D:\\\\VibrantMindsBatch3536\\\\Drivers\\\\chromedriver.exe");
+		D=new ChromeDriver();
+		D.get("https://www.w3schools.com/tags/tryit.asp?filename=tryhtml_input_test");
+		D.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+	}
+	
+	@Test
+	public void TestDataSubmission()
+	{
+		/*
+		 * Driver bydefault searches for element on main page.Following element is not present on
+		 * main HTML page but it is on NESTED HTML page.
+		 * We need to tell driver to leave working on MAIN page and shift inside the
+		 * iframe having NESTED page loaded.
+		 */
+		D.switchTo().frame("iframeResult");
+		WebElement FirstName=D.findElement(By.id("fname"));
+		FirstName.sendKeys("Pranoday");
+		
+		String FName=FirstName.getAttribute("value");
+		
+		WebElement LastName=D.findElement(By.id("lname"));
+		LastName.sendKeys("Dingare");
+		
+		String LName=LastName.getAttribute("value");
+		//<input type="submit" value="Submit">
+		/*
+		 * If we need to use any attribute like value,type etc. for which we do not have a
+		 * corresponding method in By class then we need to use CSS query.
+		 * Syntax of CSS:
+		 * TAGNAME[ATTRIBUTENAME='ATTRIBUTEVALUE']
+		 */
+		WebElement SubmitButton=D.findElement(By.cssSelector("input[value='Submit']"));
+		SubmitButton.click();
+		/*
+		 * 	<div class="w3-container w3-large w3-border" style="word-wrap:break-word">
+			fname=Pranoday&amp;lname=Dingare&nbsp;</div>
+		 */
+		/*
+		 * If an element has multiple values set in class attribute(Compound values) then 
+		 * By.className() can not be used to find element using class attribute.
+		 * 
+		 * In following example:
+		 * <div class="w3-container w3-large w3-border" style="word-wrap:break-word">
+		 * class attribute has 3 values set with space in between:
+		 * 1.w3-container
+		 * 2. w3-large
+		 * 3.  w3-border
+		 * Hence it is called Compound value, which can not be used in By.className().
+		 * If it had only one value set(i.e. Simple value) then we would have been able
+		 * to use By.className()
+		 */
+		/*
+		 * org.openqa.selenium.InvalidSelectorException: Compound class names not permitted
+		 */
+		//WebElement Div=D.findElement(By.className("w3-container w3-large w3-border"));
+		WebElement Div=D.findElement(By.cssSelector("div[class='w3-container w3-large w3-border']"));
+		/*
+		 * getText() returns text of an element and getAttribute gives value of specific attribure 
+		 * from an element
+		 */
+		String DivText=Div.getText();
+		boolean IsFirstNamePresent=DivText.contains(FName);
+		Assert.assertEquals(IsFirstNamePresent, true,"First name is not submitted");
+		
+		boolean IsLastNamePresent=DivText.contains(LName);
+		Assert.assertEquals(IsLastNamePresent, true,"Last name is not submitted");
+		//Following statement tells driver to go back to the MAIN page from Iframe
+		D.switchTo().defaultContent();
+		WebElement RunButton=D.findElement(By.id("runbtn"));
+		RunButton.click();
+	}
+}

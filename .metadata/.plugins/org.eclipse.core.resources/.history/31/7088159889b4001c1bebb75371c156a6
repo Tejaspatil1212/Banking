@@ -1,0 +1,14 @@
+
+public class WorkingOnMultipleControls 
+{
+	
+	public void StartTest()
+	{
+		
+	}
+	
+	public void TestCheckboxes()
+	{
+		
+	}
+}

@@ -1,0 +1,24 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+public class FindChild 
+{
+	ChromeDriver D;
+	@BeforeClass
+	public void StartBrowser()
+	{
+		System.setProperty("webdriver.chrome.driver", "D:\\\\\\\\VibrantMindsBatch3536\\\\\\\\Drivers\\\\\\\\chromedriver.exe");
+		D=new ChromeDriver();
+		D.get("https://courses.letskodeit.com/practice");
+	}
+	
+	@Test
+	public void FindChild()
+	{	
+		WebElement BenzCheck=D.findElement(By.cssSelector("input[value='benz']"));
+		BenzCheck.click();
+	}
+}

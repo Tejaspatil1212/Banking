@@ -1,0 +1,20 @@
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.BeforeClass;
+
+public class WorkingOnMultipleControls 
+{
+	ChromeDriver D;
+	@BeforeClass
+	public void StartTest()
+	{
+		System.setProperty("webdriver.chrome.driver", "D:\\\\\\\\VibrantMindsBatch3536\\\\\\\\Drivers\\\\\\\\chromedriver.exe");
+		D=new ChromeDriver();
+		D.get("https://courses.letskodeit.com/practice");
+
+	}
+	@Test
+	public void TestCheckboxes()
+	{
+		
+	}
+}

@@ -1,0 +1,39 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+public class ScrollingAndHovering {
+	
+	ChromeDriver D;
+	@BeforeClass
+	public void StartBrowser()
+	{
+		System.setProperty("webdriver.chrome.driver", "D:\\\\\\\\VibrantMindsBatch3536\\\\\\\\Drivers\\\\\\\\chromedriver.exe");
+		D=new ChromeDriver();
+		D.get("https://courses.letskodeit.com/practice");
+	}
+
+	@Test
+	public void Scrolling()
+	{
+		WebElement HoverButton=D.findElement(By.id("mousehover"));
+		/*
+		 * Following statement will scroll the page untill upper border of ShowButton
+		 * touch the upper border of page
+		 */
+		//D.executeScript("arguments[0].scrollIntoView()", HoverButton);
+		/*
+		 * Following statement will scroll the page untill lower border of ShowButton
+		 * touch the lower border of page
+		 */
+		//D.executeScript("arguments[0].scrollIntoView(false)", HoverButton);
+		
+		D.executeScript("arguments[0].scrollIntoView({block: \"center\"})", HoverButton);
+		Thread.sleep(5000);
+	}
+	
+	
+
+}

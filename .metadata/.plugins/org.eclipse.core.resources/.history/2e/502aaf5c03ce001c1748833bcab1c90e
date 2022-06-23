@@ -1,0 +1,113 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
+public class TestDropdownControl 
+{
+	ChromeDriver D;
+	Select Se;
+	@BeforeClass
+	public void StartTest()
+	{
+		System.setProperty("webdriver.chrome.driver", "D:\\\\\\\\VibrantMindsBatch3536\\\\\\\\Drivers\\\\\\\\chromedriver.exe");
+		D=new ChromeDriver();
+		D.get("https://courses.letskodeit.com/practice");
+		System.out.println("I am in Before class");
+	}
+	@AfterMethod
+	public void RunAfterEachTestCase()
+	{
+		System.out.println("This is going to be executed after each test case from this class");
+	}
+	@BeforeMethod
+	public void RunBeforeTestCase()
+	{
+		System.out.println("This is going to be executed before each test case from this class");
+	}
+	@Test(priority=1)
+	public void CheckDefaultValue()
+	{
+		System.out.println("I am in Tescase with priority 1");
+		/*
+		 * <select id="carselect" name="cars"> 
+		 * 	<option value="bmw">BMW</option> 
+		 * 	<option value="benz">Benz</option> 
+		 * 	<option value="honda">Honda</option> 
+		 * </select>
+		 */
+		WebElement Combobox=D.findElement(By.id("carselect"));
+		/*
+		 * Methods which we need to handle dropdown controls are implemented in a special
+		 * class called "select"
+		 */
+		
+		Se=new Select(Combobox);
+		/*
+		 * following statement will return option tag for currently selected
+		 * option in dropdown
+		 * <option value="bmw">BMW</option>
+		 * 
+		 */
+		WebElement SelectedOption=Se.getFirstSelectedOption();
+		String SelectedOptionText=SelectedOption.getText();
+		Assert.assertEquals(SelectedOptionText, "BMW","Wrong default value is selected");
+		
+	}
+	
+	@Test(priority=2)
+	public void CheckIfCorrectValueGetsSelected() throws InterruptedException
+	{
+		System.out.println("I am in Tescase with priority 2");
+		/*
+		<select id="carselect" name="cars"> 
+		 * 	<option value="bmw">BMW</option>	0 
+		 * 	<option value="benz">Benz</option> 	1
+		 * 	<option value="honda">Honda</option> 2
+		 * </select>
+		*/
+		Se.selectByIndex(1);
+		Thread.sleep(3000);
+		/*
+		 * SelectedOption=<option value="benz">Benz</option>
+		 * SelectedOptionText="Benz"
+		 */
+		WebElement SelectedOption=Se.getFirstSelectedOption();
+		String SelectedOptionText=SelectedOption.getText();
+		Assert.assertEquals(SelectedOptionText, "Benz","Wrong value gets selected");
+
+		Se.selectByValue("honda");
+		Thread.sleep(3000);
+		/*
+		 * SelectedOption=<option value="honda">Honda</option>
+		 * SelectedOptionText=Honda
+		 */
+		SelectedOption=Se.getFirstSelectedOption();
+		SelectedOptionText=SelectedOption.getText();
+		Assert.assertEquals(SelectedOptionText, "Honda","Wrong value gets selected");
+	
+		Se.selectByVisibleText("BMW");
+		Thread.sleep(3000);
+		/*
+		 * SelectedOption=<option value="bmw">BMW</option>
+		 * SelectedOptionText=BMW
+		 */
+		SelectedOption=Se.getFirstSelectedOption();
+		SelectedOptionText=SelectedOption.getText();
+		Assert.assertEquals(SelectedOptionText, "BMW","Wrong value gets selected");
+	
+	}
+
+	@AfterClass
+	public void AfterTest()
+	{
+		System.out.println("I am in AfterClass");
+		D.quit();
+	}
+}

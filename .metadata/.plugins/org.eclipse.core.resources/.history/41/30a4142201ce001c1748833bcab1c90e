@@ -1,0 +1,44 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+public class CheckingHintText 
+{
+	ChromeDriver D;
+	@BeforeClass
+	public void StartTest()
+	{
+		System.setProperty("webdriver.chrome.driver", "D:\\VibrantMindsBatch3536\\Drivers\\chromedriver.exe");
+		D=new ChromeDriver();
+		D.get("https://courses.letskodeit.com/practice");
+	}
+	
+	@Test
+	public void TestHintText()
+	{
+		/*
+		 * <input id="name" name="enter-name" class="inputs" placeholder="Enter Your Name" type="text">
+		 */
+		/*
+		 * placeholder attribute is responsible for giving HintText to an element.
+		 * If we want to check HintText then we need to check value to
+		 * attribute 'placeholder'
+		 */
+		WebElement NameField=D.findElement(By.name("enter-name"));
+		/*
+		 * Following statement will return value of 'placeholder' attribute
+		 */
+		String HintText=NameField.getAttribute("placeholder");
+		Assert.assertEquals(HintText, "Enter Your Name","Wrong hint text is shown for a Name field");
+	}
+	
+	@AfterClass
+	public void Stop()
+	{
+		D.close();
+	}
+}

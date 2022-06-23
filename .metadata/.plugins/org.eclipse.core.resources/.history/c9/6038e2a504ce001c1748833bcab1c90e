@@ -1,0 +1,27 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+public class XpathExample3 
+{
+	ChromeDriver D;
+	@BeforeClass
+	public void StartTest()
+	{
+		System.setProperty("webdriver.chrome.driver", "D:\\\\\\\\VibrantMindsBatch3536\\\\\\\\Drivers\\\\\\\\chromedriver.exe");
+		D=new ChromeDriver();
+		D.get("https://www.w3schools.com/tags/tryit.asp?filename=tryhtml_table_test");
+	}
+	
+	@Test
+	public void CheckSavings()
+	{
+		D.switchTo().frame("iframeResult");
+		WebElement SavingsElement=D.findElement(By.xpath("//td[text()='February']/following-sibling::td"));
+		String Savings=SavingsElement.getText();
+		Assert.assertEquals(Savings, "$80","Wrong savings data is shown in table");
+	}
+}

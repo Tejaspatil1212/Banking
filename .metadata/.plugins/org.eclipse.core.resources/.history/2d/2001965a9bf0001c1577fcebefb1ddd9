@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<D:16\ april auto soft\SeleniumScripts\SeleniumScripts\test-output\TestNGroupingExample.xml/>
+<suite name="All Test Suite">
+<test name="groupingtest">
+	<groups>
+	<run>
+		<include name="sanity"/>
+	</run>>
+	</groups>
+<classes>
+	<class name="GroupingExample"/>
+</classes>>
+</test>
+</suite>

@@ -1,0 +1,38 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+public class FindChild 
+{
+	ChromeDriver D;
+	@BeforeClass
+	public void StartBrowser()
+	{
+		System.setProperty("webdriver.chrome.driver", "D:\\\\\\\\VibrantMindsBatch3536\\\\\\\\Drivers\\\\\\\\chromedriver.exe");
+		D=new ChromeDriver();
+		D.get("https://courses.letskodeit.com/practice");
+	}
+	
+	@Test
+	public void FindChild()
+	{	
+		/*
+		 * When we ask driver to find element it searches for it on entire web page.
+		 * Element which it finds first while searching from top to bottom, it will work on it.
+		 */
+		//WebElement BenzCheck=D.findElement(By.cssSelector("input[value='benz']"));
+		/*
+		 * If we have some other element matching to the identification of element
+		 * we want to work on then we need to identify which parent element contains the
+		 * element we want to work on.We need to ask driver to first search for Parent element.
+		 * and then we need to ask driver to search our required element inside that parent
+		 * element.
+		 */
+		WebElement DivElement=D.findElement(By.id("checkbox-example-div"));
+		WebElement BenzCheck=DivElement.findElement(By.cssSelector("input[value='benz']"));
+
+		BenzCheck.click();
+	}
+}

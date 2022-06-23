@@ -1,0 +1,50 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+public class Checkboxfunctionality {
+	ChromeDriver D;
+	WebElement BMWCheckbox;
+	@BeforeClass
+public void StartTest()
+{
+		System.setProperty("webdriver.chrome.driver","C:\\chromedriver_win32\\chromedriver.exe");
+		D=new ChromeDriver();
+		D.get("https://courses.letskodeit.com/practice");
+}
+	@Test(priority=1)
+	public void TestCheckboxGetsChecked()
+	{
+		BMWCheckbox=D.findElement(By.id("bmwcheck"));
+		BMWCheckbox.click();
+		boolean IsChecked=BMWCheckbox.isSelected();
+		Assert.assertEquals(IsChecked,true,"Checkbox does not get selected afer clicking on it");
+	}
+		@Test(priority=2)
+		public void TestIfCheckboxGetsUnchecked()
+		{
+			BMWCheckbox.click();
+			boolean IsChecked=BMWCheckbox.isSelected();
+			Assert.assertEquals(IsChecked, false,"checkbox does not get deselected after clicking on it ");
+		}
+		@AfterClass
+		public void StopTest()
+		{
+		D.close();
+		}
+	
+	
+		
+		
+		
+		
+	
+		
+
+	
+}
+}

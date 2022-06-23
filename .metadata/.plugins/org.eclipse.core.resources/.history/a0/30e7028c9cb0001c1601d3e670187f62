@@ -1,0 +1,113 @@
+import java.time.Duration;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+/*
+ * Following class is goingto contain testcases and pre-requisite functions
+ */
+public class TestHiddenFunctionality 
+{
+	/*
+	 * Following function is taking care of opening
+	 * a browser and opening a page url in it.
+	 * This method is going to take care of pre-requisite
+	 */
+	ChromeDriver d;
+	WebElement TxtBox;
+	@BeforeClass
+	public void OpenBrowser()
+	{
+		/*
+		 * Selenium script gives instruction to chromedriver.exe. Then ChromeDriver.exe translates
+		 * these instructions into the language chrome browser understands and then browser
+		 * works accordingly.Script is going to call methods implemented in Selenium jar files
+		 * to give required instructions to driver(chromedriver.exe)
+		 */
+		/*
+		 * chromedriver constructor starts chromedriver.exe on a machine and script establishes
+		 * a communication channel with it.
+		 */
+		/*
+		 * In following statement we are setting a property called "webdriver.chrome.driver" with the
+		 * path of chromedriver.exe.
+		 */
+		System.setProperty("webdriver.chrome.driver", "D:\\VibrantMindsBatch3536\\Drivers\\chromedriver.exe");
+		d=new ChromeDriver();
+		d.get("https://courses.letskodeit.com/practice");
+		//d.manage().window().maximize();
+		/*
+		 * Following statement will ask driver to wait for maximum 10 seconds for
+		 * each element driver will try to find.Here driver will not wait for whole 10 seconds.
+		 * It will wait only until elements appears on browser page.For example if driver
+		 * is finding an element but it does not get that element immediately then driver
+		 * will start waiting for it and as soon as driver gets the element,it will find it
+		 * and moves on. 
+		 */
+		//d.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+	}
+	/*
+	 * Following function is going to have test case
+	 * steps implemented.This function will also have Checkpoint(i.e. comparison of Actual and
+	 * Expected Result)
+	 */
+	@Test(priority=1)
+	public void TestHiddenButton() throws InterruptedException
+	{
+		/*
+		 * <input id="hide-textbox" class="btn-style class2" value="Hide" onclick="hideElement()" type="submit">
+		 */
+		/*
+		 * We need to tell such an attribure of a UI element to the tool, which is:
+		 * i) Unique
+		 * ii) Does not change
+		 */
+		//Following is hard-coded wait.Here script will get paused for 5 seconds
+		//Thread.sleep(5000);
+		WebElement HideButton=d.findElement(By.id("hide-textbox"));
+		HideButton.click();
+		/*
+		 * <input id="displayed-text" name="show-hide" class="inputs displayed-class" placeholder="Hide/Show Example" type="text">
+		 */
+		
+		TxtBox=d.findElement(By.name("show-hide"));
+		/*
+		 * isDisplayed() function returns boolean true if an element is shown on the page, 
+		 * else it returns boolean false
+		 */
+		boolean IsShown=TxtBox.isDisplayed();
+		Assert.assertEquals(IsShown, false,"Hide button does not work");
+	}
+	@Test(priority=2)
+	public void TestShowButton()
+	{
+		WebElement ShowButton=d.findElement(By.id("show-textbox"));
+		/*
+		 * Following 2 statements defines an explicit wait where we are asking driver to
+		 * pause until a given condition is satisfied.Driver will wait only for time a condition
+		 * takes to get satisfied.For example if show button takes 2 seconds to be clickable
+		 * then driver will wait for 2 seconds and then will move on.
+		 */
+		WebDriverWait W=new WebDriverWait(d,Duration.ofSeconds(10));
+		W.until(ExpectedConditions.elementToBeClickable(ShowButton));
+		
+		ShowButton.click();
+		boolean IsShown=TxtBox.isDisplayed();
+		Assert.assertEquals(IsShown, true,"Show button did not work");
+	}
+	//@Afterclass gets executed at the end
+	@AfterClass
+	public void Close()
+	{
+		d.close();
+	}
+
+}

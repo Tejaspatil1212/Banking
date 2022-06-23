@@ -1,0 +1,30 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+public class FindChild 
+{
+	ChromeDriver D;
+	@BeforeClass
+	public void StartBrowser()
+	{
+		System.setProperty("webdriver.chrome.driver", "D:\\\\\\\\VibrantMindsBatch3536\\\\\\\\Drivers\\\\\\\\chromedriver.exe");
+		D=new ChromeDriver();
+		D.get("https://courses.letskodeit.com/practice");
+	}
+	
+	@Test
+	public void FindChild()
+	{	
+		/*
+		 * When we ask driver to find element it searches for it on entire web page.
+		 * Element which it finds first while searching from top to bottom, it will work on it.
+		 */
+		WebElement DivElement=D.findElement(By.id("checkbox-example-div"));
+		WebElement BenzCheck=DivElement.findElement(By.cssSelector("input[value='benz']"));
+		//WebElement BenzCheck=D.findElement(By.cssSelector("input[value='benz']"));
+		BenzCheck.click();
+	}
+}

@@ -1,0 +1,10 @@
+
+public class CheckingPasteOperationInPasswordField {
+	
+	ChromeDriver D;
+	@BeforeClass
+	public void StartBrowser()
+	{
+		
+	}
+}

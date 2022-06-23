@@ -1,0 +1,9 @@
+
+public class CheckingPasteOperationInPasswordField {
+	
+	@BeforeClass
+	public void StartBrowser()
+	{
+		
+	}
+}

@@ -1,0 +1,65 @@
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+public class TestBrowserAlertFunctionality 
+{
+	ChromeDriver D;
+	@BeforeClass
+	public void startTest()
+	{
+		System.setProperty("webdriver.chrome.driver", "D:\\VibrantMindsBatch3536\\Drivers\\chromedriver.exe");
+		D=new ChromeDriver();
+		D.get("https://courses.letskodeit.com/practice");
+	}
+	
+	@Test
+	public void TestAlertMessage()
+	{
+		WebElement NameField=D.findElement(By.id("name"));
+		NameField.sendKeys("Pranoday");
+		/*
+		 * Text we enter into an EditBox gets set to its "value" attribute.If we want to
+		 * retrieve a typed text then we have to use getAttribute("value")
+		 */
+		String EnteredName=NameField.getAttribute("value");
+		WebElement AlertBtn=D.findElement(By.id("alertbtn"));
+		AlertBtn.click();
+		/*
+		 * By default selenium driver works on html elements which are part of our web page.
+		 * Now if we want Selenium driver to work on browser alert box then we have to tell
+		 * driver to switch the working context to a alert box from page.
+		 * Following statement tells driver to switch working context from page to alert box.
+		 * And it returns that alert to script.
+		 */
+		Alert Al=D.switchTo().alert();
+		//Following statement will return alert message
+		String AlertText=Al.getText();
+		/*
+		 * AlertText=Hello Pravin, share this practice page and share your knowledge
+		 * EnteredName= Pranoday
+		 */
+		//Following statement will return boolean true if EnteredName is present in AlertText
+		boolean IsStringPresent=AlertText.contains(EnteredName);
+		Assert.assertEquals(IsStringPresent, true,"Name entered is not present in alert message");
+		//Following statement will close the alert by clicking on Ok button
+		Al.accept();
+	}
+	@AfterClass
+	public void StopTest()
+	{
+		D.close();
+	}
+
+	@AfterTest
+	public void DeleteTestData()
+	{
+		System.out.println("This is going to be executed after the test tag.Deleting test data");
+	}
+}

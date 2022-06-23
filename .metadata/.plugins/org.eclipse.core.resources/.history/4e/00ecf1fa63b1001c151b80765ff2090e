@@ -1,0 +1,52 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+public class ScrollingAndHovering {
+	
+	ChromeDriver D;
+	@BeforeClass
+	public void StartBrowser()
+	{
+		System.setProperty("webdriver.chrome.driver", "D:\\\\\\\\VibrantMindsBatch3536\\\\\\\\Drivers\\\\\\\\chromedriver.exe");
+		D=new ChromeDriver();
+		D.get("https://courses.letskodeit.com/practice");
+	}
+
+	@Test
+	public void Scrolling() throws InterruptedException
+	{
+		WebElement HoverButton=D.findElement(By.id("mousehover"));
+		/*
+		 * Following statement will scroll the page untill upper border of ShowButton
+		 * touch the upper border of page
+		 */
+		D.executeScript("arguments[0].scrollIntoView()", HoverButton);
+		Thread.sleep(5000);
+		/*
+		 * Following statement will scroll the page untill lower border of ShowButton
+		 * touch the lower border of page
+		 */
+		D.executeScript("arguments[0].scrollIntoView(false)", HoverButton);
+		Thread.sleep(5000);
+		/*
+		 * If we want to scroll the page untill ShowButton gets aligned in center of Y axis
+		 * we have to use:
+		 * D.executeScript("arguments[0].scrollIntoView({block: \"center\"})", HoverButton);
+		 * 
+		 * If we want to scroll the page untill ShowButton gets aligned in center of X axis
+		 * we have to use:
+		 * D.executeScript("arguments[0].scrollIntoView({inline: \"center\"})", HoverButton);
+		 */
+		D.executeScript("arguments[0].scrollIntoView({block: \"center\"})", HoverButton);
+		Thread.sleep(5000);
+		Actions Act=new Actions(D);
+		Act.moveToElement(HoverButton).perform();
+	}
+	
+	
+
+}
